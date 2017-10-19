@@ -9,7 +9,7 @@
             padding: 0;
             margin: 0;
         }
-        
+
         canvas {
             background: #eee;
             display: block;
@@ -27,12 +27,12 @@
         var ctx = canvas.getContext("2d");
         var fps = 60;
         var radius = 10;
-        var x = canvas.width / 2;
-        var y = canvas.height - 30;
+        var x = (canvas.width - radius) / Math.floor((Math.random() * 10) + 1);
+        var y = (canvas.height - radius) / Math.floor((Math.random() * 10) + 1);
         var dx = 2;
         var dy = -2;
-        var x2 = canvas.width / 2;
-        var y2 = canvas.height - 100;
+        var x2 = (canvas.width - radius) / Math.floor((Math.random() * 10) + 1);
+        var y2 = (canvas.height - radius) / Math.floor((Math.random() * 10) + 1);
         var dx2 = -2;
         var dy2 = 2;
         // JavaScript code goes here
@@ -42,10 +42,10 @@
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            x = canvas.width / 2;
-            y = canvas.height - 30;
-            x2 = canvas.width / 2;
-            y2 = canvas.height - 100;
+            x = (canvas.width - radius) / Math.floor((Math.random() * 10) + 1);
+            y = (canvas.height - radius) / Math.floor((Math.random() * 10) + 1);
+            x2 = (canvas.width - radius) / Math.floor((Math.random() * 10) + 1);
+            y2 = (canvas.height - radius) / Math.floor((Math.random() * 10) + 1);
             /**
              * Your drawings need to be inside this function otherwise they will be reset when 
              * you resize the browser window and the canvas goes will be cleared.
@@ -77,6 +77,19 @@
                 dy = -dy;
                 dx2 = -dx2;
                 dy2 = -dy2;
+            }
+            // fix out of boundary
+            if (x < radius) {
+                x = (canvas.width - radius) / Math.floor((Math.random() * 10) + 1);
+            }
+            if (y < radius) {
+                y = (canvas.height - radius) / Math.floor((Math.random() * 10) + 1);
+            }
+            if (x2 < radius) {
+                x2 = (canvas.width - radius) / Math.floor((Math.random() * 10) + 1);
+            }
+            if (y2 < radius) {
+                y2 = (canvas.height - radius) / Math.floor((Math.random() * 10) + 1);
             }
         }
 
