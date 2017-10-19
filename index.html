@@ -31,6 +31,10 @@
         var y = canvas.height - 30;
         var dx = 2;
         var dy = -2;
+        var x2 = canvas.width / 2;
+        var y2 = canvas.height - 100;
+        var dx2 = -2;
+        var dy2 = 2;
         // JavaScript code goes here
         // resize the canvas to fill browser window dynamically
         window.addEventListener('resize', resizeCanvas, false);
@@ -40,6 +44,8 @@
             canvas.height = window.innerHeight;
             x = canvas.width / 2;
             y = canvas.height - 30;
+            x2 = canvas.width / 2;
+            y2 = canvas.height - 100;
             /**
              * Your drawings need to be inside this function otherwise they will be reset when 
              * you resize the browser window and the canvas goes will be cleared.
@@ -56,12 +62,35 @@
             if (y + dy + radius > canvas.height || y + dy - radius < 0) {
                 dy = -dy;
             }
+            if (x2 + dx2 + radius > canvas.width || x2 + dx2 - radius < 0) {
+                dx2 = -dx2;
+            }
+            if (y2 + dy2 + radius > canvas.height || y2 + dy2 - radius < 0) {
+                dy2 = -dy2;
+            }
+            // balls collision
+            if (
+                Math.abs((x + dx) - (x2 + dx2)) <= radius &&
+                Math.abs((y + dy) - (y2 + dy2)) <= radius
+            ) {
+                dx = -dx;
+                dy = -dy;
+                dx2 = -dx2;
+                dy2 = -dy2;
+            }
         }
 
         function drawBall() {
+            // ball1
             ctx.beginPath();
             ctx.arc(x, y, radius, 0, Math.PI * 2);
             ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+            // ball2
+            ctx.beginPath();
+            ctx.arc(x2, y2, radius, 0, Math.PI * 2);
+            ctx.fillStyle = "#FF9500";
             ctx.fill();
             ctx.closePath();
         }
@@ -73,6 +102,8 @@
             detectCollision();
             x += dx;
             y += dy;
+            x2 += dx2;
+            y2 += dy2;
             //console.log("(" + x + "," + y + ")");
         }
 
